@@ -113,6 +113,8 @@ void setup() {
 		data[12], data[13], data[14], data[15]);
 		Serial.println(buf);
 	}
+	
+	Serial.println(F("EOF"));
 }
 
 void loop() {
