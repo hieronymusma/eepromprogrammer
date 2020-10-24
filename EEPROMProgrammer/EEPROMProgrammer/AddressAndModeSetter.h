@@ -11,24 +11,28 @@
 #ifndef __ADDRESSANDMODESETTER_H__
 #define __ADDRESSANDMODESETTER_H__
 
+enum Mode {
+	Read,
+	Write
+};
 
 class AddressAndModeSetter
 {
 	//variables
-public:
-protected:
-private:
+	public:
+	protected:
+	private:
 	const ShiftRegisterWriter<uint16_t> shiftRegisterWriter;
 
 	//functions
-public:
+	public:
 	AddressAndModeSetter(const uint8_t dataPin, const uint8_t clockPin, const uint8_t latchPin);
 	~AddressAndModeSetter();
-	void setAddress(uint16_t address, bool outputEnable) const;
-protected:
-private:
-	//AddressAndModeSetter( const AddressAndModeSetter &c );
-	//AddressAndModeSetter& operator=( const AddressAndModeSetter &c );
+	void writeToAddress(uint16_t address) const;
+	void readFromAddress(uint16_t address) const;
+	protected:
+	private:
+	void outputState(uint16_t address, Mode mode) const;
 
 }; //AddressAndModeSetter
 

@@ -32,7 +32,8 @@ EEPROMReaderWriter::~EEPROMReaderWriter()
 void EEPROMReaderWriter::write(uint16_t address, uint8_t value) const
 {
 	setDatapinMode(OUTPUT);
-	addressAndModeSetter.setAddress(address, false);
+	
+	addressAndModeSetter.writeToAddress(address);
 	
 	for(uint8_t port: dataPins) {
 		digitalWrite(port, value & 0x01);
@@ -58,9 +59,7 @@ uint8_t EEPROMReaderWriter::read(uint16_t address) const
 	setDatapinMode(INPUT);
 	
 	// Toggle output enable to trigger read of EEPROM
-	addressAndModeSetter.setAddress(address, false);
-	addressAndModeSetter.setAddress(address, true);
-
+	addressAndModeSetter.readFromAddress(address);
 	// Wait until address lines are stable
 	Helper::ExecuteNops(3);
 
@@ -77,8 +76,6 @@ uint8_t EEPROMReaderWriter::read(uint16_t address) const
 		}
 		bitPosition++;
 	}
-
-	addressAndModeSetter.setAddress(address, false);
 
 	return readByte;
 }
