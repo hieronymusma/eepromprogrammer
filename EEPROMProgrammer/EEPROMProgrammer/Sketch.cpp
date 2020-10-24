@@ -1,6 +1,5 @@
 ﻿#include <Arduino.h>
-
-#define _NOP() do { __asm__ __volatile__ ("nop"); } while (0)
+#include "AddressAndModeSetter.h"
 
 const uint8_t SHIFT_DATA = 2;
 const uint8_t SHIFT_CLK = 3;
@@ -10,24 +9,7 @@ const uint8_t EEPROM_D0 = 5;
 const uint8_t EEPROM_D7 = 12;
 const uint8_t EEPROM_WE = 13;
 
-void setAddress(uint16_t address, bool outputEnable) {
-	// Output enable is low active
-	
-	uint8_t lastBytes = address >> 8;
-	
-	// We only use last 5 bits for address
-	lastBytes &= 0x1f;
-	
-	// 4 bit is outputEnable bit
-	lastBytes |= outputEnable ? 0x00 : 0x20;
-	
-	shiftOut(SHIFT_DATA, SHIFT_CLK, MSBFIRST, lastBytes);
-	shiftOut(SHIFT_DATA, SHIFT_CLK, MSBFIRST, address);
-	
-	digitalWrite(SHIFT_LATCH, LOW);
-	digitalWrite(SHIFT_LATCH, HIGH);
-	digitalWrite(SHIFT_LATCH, LOW);
-}
+const AddressAndModeSetter addressAndModeSetter(SHIFT_DATA, SHIFT_CLK, SHIFT_LATCH);
 
 void setDatapinMode(uint8_t mode) {
 	for(uint8_t i = EEPROM_D0; i <= EEPROM_D7; i++) {
@@ -39,8 +21,8 @@ uint8_t readEEPROM(uint16_t address) {
 	uint8_t readByte = 0;
 	
 	setDatapinMode(INPUT);
-	setAddress(address, false);
-	setAddress(address, true);
+	addressAndModeSetter.setAddress(address, false);
+	addressAndModeSetter.setAddress(address, true);
 	
 	_NOP();
 	_NOP();
@@ -50,7 +32,7 @@ uint8_t readEEPROM(uint16_t address) {
 		readByte = (readByte << 1) + digitalRead(i);
 	}
 	
-	setAddress(address, false);
+	addressAndModeSetter.setAddress(address, false);
 	
 	return readByte;
 }
@@ -58,7 +40,7 @@ uint8_t readEEPROM(uint16_t address) {
 void writeEEPROM(uint16_t address, uint8_t data) {
 	
 	setDatapinMode(OUTPUT);
-	setAddress(address, false);
+	addressAndModeSetter.setAddress(address, false);
 		
 	for(uint8_t i = EEPROM_D0; i <= EEPROM_D7; i++) {
 		digitalWrite(i, data & 0x01);
@@ -97,7 +79,7 @@ void setup() {
 	writeEEPROM(0, 0xef);
 	
 	for(uint16_t i = 0; i <= 0xff; i++) {
-		writeEEPROM(i, i + 0x3);
+		writeEEPROM(i, i);
 	}
 	
 	Serial.println(F("End writing"));

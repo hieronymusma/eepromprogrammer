@@ -17,6 +17,7 @@ def readSerial():
             val = str(ser.readline().decode().strip('\r\n'))
             valA = val.split("/")
             if "EOF" in val:
+                print("Received EOF. Exiting...")
                 return
             if val != '':
                 print(val, end="\n", flush=True)
