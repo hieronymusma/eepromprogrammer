@@ -25,8 +25,8 @@ void ShiftRegisterWriter<T>::write(T value) const {
 
 // default constructor
 template <typename T>
-ShiftRegisterWriter<T>::ShiftRegisterWriter(const uint8_t clockPin, const uint8_t dataPin, const uint8_t latchPin)
-: clockPin(clockPin), dataPin(dataPin), latchPin(latchPin)
+ShiftRegisterWriter<T>::ShiftRegisterWriter(const uint8_t dataPin, const uint8_t clockPin, const uint8_t latchPin)
+: dataPin(dataPin), clockPin(clockPin), latchPin(latchPin)
 {
 	digitalWrite(latchPin, LOW);
 	

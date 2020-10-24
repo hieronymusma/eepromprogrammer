@@ -17,19 +17,17 @@ class ShiftRegisterWriter
 public:
 protected:
 private:
-	const uint8_t clockPin;
 	const uint8_t dataPin;
+	const uint8_t clockPin;
 	const uint8_t latchPin;
 
 //functions
 public:
-	ShiftRegisterWriter(const uint8_t clockPin, const uint8_t dataPin, const uint8_t latchPin);
+	ShiftRegisterWriter(const uint8_t dataPin, const uint8_t clockPin, const uint8_t latchPin);
 	~ShiftRegisterWriter();
 	void write(T value) const;
 protected:
 private:
-	//ShiftRegisterWriter( const ShiftRegisterWriter &c );
-	//ShiftRegisterWriter& operator=( const ShiftRegisterWriter &c );
 
 }; //ShiftRegisterWriter
 

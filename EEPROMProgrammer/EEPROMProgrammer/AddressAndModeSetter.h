@@ -18,9 +18,6 @@ class AddressAndModeSetter
 public:
 protected:
 private:
-	const uint8_t dataPin;
-	const uint8_t clockPin;
-	const uint8_t latchPin;
 	const ShiftRegisterWriter<uint16_t> shiftRegisterWriter;
 
 	//functions

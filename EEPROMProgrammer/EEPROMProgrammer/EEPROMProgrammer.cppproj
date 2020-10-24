@@ -230,6 +230,21 @@
     <Compile Include="AddressAndModeSetter.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="EEPROMReaderWriter.cpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="EEPROMReaderWriter.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Helper.cpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Helper.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="UsedPorts.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="ShiftRegisterWriter.cpp">
       <SubType>compile</SubType>
     </Compile>
