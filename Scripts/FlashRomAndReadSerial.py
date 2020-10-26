@@ -14,7 +14,11 @@ def readSerial():
     with serial.Serial('COM4', 57600, timeout=1) as ser:
         while(True):
             # Capture serial output as a decoded string
-            val = str(ser.readline().decode().strip('\r\n'))
+            recv = ser.readline()
+            try:
+                val = str(recv.decode().strip('\r\n'))
+            except:
+                continue
             valA = val.split("/")
             if "EOF" in val:
                 print("Received EOF. Exiting...")

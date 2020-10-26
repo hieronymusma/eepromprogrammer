@@ -23,7 +23,7 @@ private:
 	
 //functions
 public:
-	EEPROMReaderWriter(const uint8_t, const uint8_t, const uint8_t, const uint8_t, const uint8_t (&)[8]);
+	EEPROMReaderWriter(const uint8_t shiftDataPin, const uint8_t shiftClockPin,	const uint8_t shiftLatchPin, const uint8_t writeEnablePin, const uint8_t (&dataPins)[8]);
 	~EEPROMReaderWriter();
 	void write(uint16_t address, uint8_t value) const;
 	uint8_t read(uint16_t address) const;

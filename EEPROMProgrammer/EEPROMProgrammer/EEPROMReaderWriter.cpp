@@ -20,8 +20,6 @@ const uint8_t (&dataPins)[8])
 {
 	digitalWrite(writeEnablePin, HIGH);
 	pinMode(writeEnablePin, OUTPUT);
-	
-	setDatapinMode(INPUT);
 } //EEPROMReaderWriter
 
 // default destructor
@@ -30,18 +28,15 @@ EEPROMReaderWriter::~EEPROMReaderWriter()
 } //~EEPROMReaderWriter
 
 void EEPROMReaderWriter::write(uint16_t address, uint8_t value) const
-{
+{	
+	addressAndModeSetter.writeToAddress(address);
 	setDatapinMode(OUTPUT);
 	
-	addressAndModeSetter.writeToAddress(address);
-	
+	uint8_t valueToWrite = value;
 	for(uint8_t port: dataPins) {
-		digitalWrite(port, value & 0x01);
-		value = value >> 1;
+		digitalWrite(port, valueToWrite & 0x01);
+		valueToWrite = valueToWrite >> 1;
 	}
-	
-	// Wait for data setup time
-	Helper::ExecuteNops(1);
 	
 	digitalWrite(writeEnablePin, HIGH);
 	digitalWrite(writeEnablePin, LOW);
@@ -50,8 +45,8 @@ void EEPROMReaderWriter::write(uint16_t address, uint8_t value) const
 	
 	digitalWrite(writeEnablePin, HIGH);
 	
-	delay(10);
-	setDatapinMode(INPUT);
+	// Data polling
+	while(read(address) != value) {	}
 }
 
 uint8_t EEPROMReaderWriter::read(uint16_t address) const
