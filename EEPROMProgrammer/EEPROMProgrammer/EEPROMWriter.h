@@ -23,7 +23,8 @@ const EEPROMReaderWriter eepromReaderWriter;
 public:
 	EEPROMWriter(const uint8_t shiftDataPin, const uint8_t shiftClockPin, const uint8_t shiftLatchPin, const uint8_t writeEnablePin, const uint8_t (&dataPins)[8]);
 	~EEPROMWriter();
-	void writeData(const uint8_t* const data, size_t len) const;
+	void writeDataFromProgmem(const uint8_t* const data, size_t len) const;
+	void erase(const size_t bytes) const;
 	void printData(size_t bytes) const;
 protected:
 private:

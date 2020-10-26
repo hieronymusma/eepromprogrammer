@@ -41,7 +41,7 @@ void EEPROMReaderWriter::write(const uint16_t address, const uint8_t value) cons
 	digitalWrite(writeEnablePin, HIGH);
 	digitalWrite(writeEnablePin, LOW);
 	
-	Helper::ExecuteNops(3);
+	// Helper::ExecuteNops(3);
 	
 	digitalWrite(writeEnablePin, HIGH);
 	
