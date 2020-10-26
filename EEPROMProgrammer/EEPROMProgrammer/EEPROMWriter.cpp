@@ -19,7 +19,7 @@ EEPROMWriter::~EEPROMWriter()
 {
 } //~EEPROMWriter
 
-void EEPROMWriter::writeData(uint8_t *data, size_t len) const
+void EEPROMWriter::writeData(const uint8_t* const data, size_t len) const
 {
 	Serial.println(F("Start writing..."));
 	
@@ -56,7 +56,7 @@ void EEPROMWriter::printData(size_t bytes) const
 	}
 }
 
-bool EEPROMWriter::validate(uint8_t *data, size_t len) const
+bool EEPROMWriter::validate(const uint8_t* const data, size_t len) const
 {
 	Serial.println(F("Validating..."));
 	

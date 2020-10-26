@@ -10,7 +10,7 @@
 #include "Helper.h"
 
 template <typename T>
-void ShiftRegisterWriter<T>::write(T value) const {
+void ShiftRegisterWriter<T>::write(const T value) const {
 	
 	auto byteSize = sizeof(T) - 1;
 	

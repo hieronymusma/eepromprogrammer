@@ -25,11 +25,11 @@ private:
 public:
 	EEPROMReaderWriter(const uint8_t shiftDataPin, const uint8_t shiftClockPin,	const uint8_t shiftLatchPin, const uint8_t writeEnablePin, const uint8_t (&dataPins)[8]);
 	~EEPROMReaderWriter();
-	void write(uint16_t address, uint8_t value) const;
-	uint8_t read(uint16_t address) const;
+	void write(const uint16_t address, const uint8_t value) const;
+	uint8_t read(const uint16_t address) const;
 protected:
 private:
-	void setDatapinMode(uint8_t mode) const;
+	void setDatapinMode(const uint8_t mode) const;
 
 }; //EEPROMReaderWriter
 

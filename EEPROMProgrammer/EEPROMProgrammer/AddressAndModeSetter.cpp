@@ -8,7 +8,7 @@
 
 #include "AddressAndModeSetter.h"
 
-void AddressAndModeSetter::outputState(uint16_t address, Mode mode) const
+void AddressAndModeSetter::outputState(const uint16_t address, const Mode mode) const
 {
 	uint16_t state = address & 0x1ffff;
 	state |= mode == Read ? 0x0 : 0x2000;
@@ -26,12 +26,12 @@ AddressAndModeSetter::~AddressAndModeSetter()
 {
 } //~AddressAndModeSetter
 
-void AddressAndModeSetter::writeToAddress(uint16_t address) const
+void AddressAndModeSetter::writeToAddress(const uint16_t address) const
 {
 	outputState(address, Write);
 }
 
-void AddressAndModeSetter::readFromAddress(uint16_t address) const
+void AddressAndModeSetter::readFromAddress(const uint16_t address) const
 {
 	outputState(address, Write);
 	outputState(address, Read);

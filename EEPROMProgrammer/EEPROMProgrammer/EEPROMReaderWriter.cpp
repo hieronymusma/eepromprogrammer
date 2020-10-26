@@ -27,7 +27,7 @@ EEPROMReaderWriter::~EEPROMReaderWriter()
 {
 } //~EEPROMReaderWriter
 
-void EEPROMReaderWriter::write(uint16_t address, uint8_t value) const
+void EEPROMReaderWriter::write(const uint16_t address, const uint8_t value) const
 {	
 	addressAndModeSetter.writeToAddress(address);
 	setDatapinMode(OUTPUT);
@@ -49,7 +49,7 @@ void EEPROMReaderWriter::write(uint16_t address, uint8_t value) const
 	while(read(address) != value) {	}
 }
 
-uint8_t EEPROMReaderWriter::read(uint16_t address) const
+uint8_t EEPROMReaderWriter::read(const uint16_t address) const
 {
 	setDatapinMode(INPUT);
 	
@@ -75,7 +75,7 @@ uint8_t EEPROMReaderWriter::read(uint16_t address) const
 	return readByte;
 }
 
-void EEPROMReaderWriter::setDatapinMode(uint8_t mode) const
+void EEPROMReaderWriter::setDatapinMode(const uint8_t mode) const
 {
 	for(uint8_t port: dataPins) {
 		pinMode(port, mode);

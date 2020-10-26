@@ -25,7 +25,7 @@ private:
 public:
 	ShiftRegisterWriter(const uint8_t dataPin, const uint8_t clockPin, const uint8_t latchPin);
 	~ShiftRegisterWriter();
-	void write(T value) const;
+	void write(const T value) const;
 protected:
 private:
 

@@ -3,7 +3,7 @@
 #include "EEPROMReaderWriter.h"
 #include "UsedPorts.h"
 
-uint8_t segmentBytes[] = { 0x1, 0x2, 0x3, 0x4 };
+uint8_t const segmentBytes[] = { 0x01, 0x4f, 0x12, 0x06, 0x4c, 0x24, 0x20, 0x0f, 0x00, 0x04, 0x08, 0x60, 0x31, 0x42, 0x30, 0x38 };
 
 void setup() {
 	Serial.begin(57600);
@@ -17,12 +17,7 @@ void setup() {
 	Serial.println(F("Before:"));
 	writer.printData(256);
 	
-	uint8_t bytes[256];
-	for(size_t i = 0; i < sizeof(bytes); i++) {
-		bytes[i] = i;
-	}
-	
-	writer.writeData(bytes, sizeof(bytes));
+	writer.writeData(segmentBytes, sizeof(segmentBytes));
 	
 	Serial.println(F("After:"));
 	writer.printData(256);
