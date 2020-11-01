@@ -5,8 +5,9 @@ import time
 
 
 def main():
-    hexFile = sys.argv[1]
-    executeAvrDude(hexFile)
+    if len(sys.argv) == 2:
+        hexFile = sys.argv[1]
+        executeAvrDude(hexFile)
     readSerial()
 
 
@@ -25,13 +26,6 @@ def readSerial():
                 return
             if val != '':
                 print(val, end="\n", flush=True)
-    # read = ser.read(1)
-    # if read != b'':
-    #     result = str(read).rstrip().replace('\\n', '\n').replace('\\r', '\r')
-    #     if b'\n' in read:
-    #         print(result)
-    #     else:
-    #         print(result, end='')
 
 
 def executeAvrDude(filename):

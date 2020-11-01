@@ -18,6 +18,7 @@ const uint8_t writeEnablePin,
 const uint8_t (&dataPins)[8])
 : addressAndModeSetter(shiftDataPin, shiftClockPin, shiftLatchPin), writeEnablePin(writeEnablePin), dataPins(dataPins)
 {
+	setDatapinMode(INPUT);
 	digitalWrite(writeEnablePin, HIGH);
 	pinMode(writeEnablePin, OUTPUT);
 } //EEPROMReaderWriter
@@ -56,7 +57,7 @@ uint8_t EEPROMReaderWriter::read(const uint16_t address) const
 	// Toggle output enable to trigger read of EEPROM
 	addressAndModeSetter.readFromAddress(address);
 	// Wait until address lines are stable
-	Helper::ExecuteNops(3);
+	delayMicroseconds(1);
 
 	uint8_t readByte = 0;
 
