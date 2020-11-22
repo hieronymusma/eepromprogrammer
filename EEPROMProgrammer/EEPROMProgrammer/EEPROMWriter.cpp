@@ -19,28 +19,24 @@ EEPROMWriter::~EEPROMWriter()
 {
 } //~EEPROMWriter
 
-void EEPROMWriter::writeDataFromProgmem(const uint8_t* const data, size_t len) const
+bool EEPROMWriter::write(const uint8_t data, uint16_t address) const
 {
-	Serial.println(F("Start writing..."));
+	eepromReaderWriter.write(address, data);
 	
-	for(size_t i = 0; i < len; i++) {
-		eepromReaderWriter.write(i, pgm_read_byte(&data[i]));
-	}
-	
-	if (validate(data, len)) {
-		Serial.println(F("Validation successful."));
-		} else {
+	if (!validate(data, address)) {		
 		Serial.println(F("####################################"));
 		Serial.println(F("Validation failed!!!."));
 		Serial.println(F("####################################"));
+		return false;
 	}
+	return true;
 }
 
 void EEPROMWriter::erase(const size_t bytes) const
 {
 	Serial.println(F("Erasing..."));
 	for(size_t i = 0; i < bytes; i++) {
-		eepromReaderWriter.write(i, 0xff);
+		eepromReaderWriter.write(i, 0);
 	}
 }
 
@@ -64,15 +60,11 @@ void EEPROMWriter::printData(size_t bytes) const
 	}
 }
 
-bool EEPROMWriter::validate(const uint8_t* const data, size_t len) const
+bool EEPROMWriter::validate(const uint8_t data, uint16_t address) const
 {
-	Serial.println(F("Validating..."));
-	
-	for(size_t i = 0; i < len; i++) {
-		auto readValue = eepromReaderWriter.read(i);
-		if (readValue != pgm_read_byte(&data[i])) {
-			return false;
-		}
+	auto readValue = eepromReaderWriter.read(address);
+	if (readValue != data) {
+		return false;
 	}
 	return true;
 }

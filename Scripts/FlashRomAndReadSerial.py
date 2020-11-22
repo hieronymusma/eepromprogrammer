@@ -5,14 +5,17 @@ import time
 
 
 def main():
-    if len(sys.argv) == 2:
+    if len(sys.argv) == 3:
         hexFile = sys.argv[1]
-        executeAvrDude(hexFile)
-    readSerial()
+        port = sys.argv[2]
+        executeAvrDude(hexFile, port)
+    else:
+        port = sys.argv[1]
+    readSerial(port)
 
 
-def readSerial():
-    with serial.Serial('COM4', 57600, timeout=1) as ser:
+def readSerial(port):
+    with serial.Serial(port, 57600, timeout=1) as ser:
         while(True):
             # Capture serial output as a decoded string
             recv = ser.readline()
@@ -28,14 +31,14 @@ def readSerial():
                 print(val, end="\n", flush=True)
 
 
-def executeAvrDude(filename):
+def executeAvrDude(filename, port):
     command = [
         r'C:\Program Files (x86)\Arduino\hardware\tools\avr\bin\avrdude.exe',
         r'-CC:\Program Files (x86)\Arduino\hardware\tools\avr\etc\avrdude.conf',
         '-v',
         '-patmega328p',
         '-carduino',
-        '-PCOM4',
+        '-P%s' % port,
         '-b115200',
         '-D',
         '-Uflash:w:%s:i' % (filename)

@@ -222,8 +222,20 @@
         <avrgcccpp.assembler.debugging.DebugLevel>Default (-Wa,-g)</avrgcccpp.assembler.debugging.DebugLevel>
       </AvrGccCpp>
     </ToolchainSettings>
+    <OutputFileName>EEPROMProgrammer</OutputFileName>
+    <OutputFileExtension>.elf</OutputFileExtension>
+    <OutputType>Executable</OutputType>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="OutputmoduleWriter.cpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="OutputmoduleWriter.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="SegmentNumber.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="AddressAndModeSetter.cpp">
       <SubType>compile</SubType>
     </Compile>
