@@ -227,6 +227,12 @@
     <OutputType>Executable</OutputType>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="InstructionWriter.cpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="InstructionWriter.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="OutputmoduleWriter.cpp">
       <SubType>compile</SubType>
     </Compile>
